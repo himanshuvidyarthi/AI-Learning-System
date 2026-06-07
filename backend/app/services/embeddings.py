@@ -12,6 +12,7 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from tenacity import retry, stop_after_attempt, wait_exponential, before_sleep_log
 
 from app.config import get_settings
+from app.utils.retry import embed_retry
 
 logger = logging.getLogger(__name__)
 
@@ -38,25 +39,11 @@ class ResilientEmbeddings(Embeddings):
     def embed_query(self, text: str) -> list[float]:
         return self._embed_q(text)
 
-    @retry(
-        retry=lambda rs: isinstance(rs.outcome.exception(), (ConnectionError, OSError, TimeoutError))
-            if rs.outcome.failed else False,
-        wait=wait_exponential(min=1, max=30),
-        stop=stop_after_attempt(3),
-        before_sleep=before_sleep_log(logger, logging.WARNING),
-        reraise=True,
-    )
+
     def _embed_docs(self, texts: list[str]) -> list[list[float]]:
         return self._model.embed_documents(texts)
 
-    @retry(
-        retry=lambda rs: isinstance(rs.outcome.exception(), (ConnectionError, OSError, TimeoutError))
-            if rs.outcome.failed else False,
-        wait=wait_exponential(min=1, max=30),
-        stop=stop_after_attempt(3),
-        before_sleep=before_sleep_log(logger, logging.WARNING),
-        reraise=True,
-    )
+    @embed_retry
     def _embed_q(self, text: str) -> list[float]:
         return self._model.embed_query(text)
 
