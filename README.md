@@ -177,3 +177,7 @@ The GitHub Actions workflow (`.github/workflows/main.yml`) runs on every push:
 2. **Frontend** — ESLint + TypeScript check + Next.js build
 3. **Docker** — Build both images (cache via GitHub Actions cache)
 4. **Deploy** — Placeholder step (wire up to your infrastructure)
+
+
+
+image.png
