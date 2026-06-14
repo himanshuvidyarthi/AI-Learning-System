@@ -1,3 +1,4 @@
+<img width="792" height="547" alt="Screenshot 2026-06-14 072910" src="https://github.com/user-attachments/assets/90963014-6627-4e02-9ca4-c8249b21cb0f" />
 # My Learning AI Assistant
 
 > An advanced RAG-powered AI assistant with a cosmic glassmorphism UI.  
@@ -179,5 +180,3 @@ The GitHub Actions workflow (`.github/workflows/main.yml`) runs on every push:
 4. **Deploy** — Placeholder step (wire up to your infrastructure)
 
 
-
-image.png
